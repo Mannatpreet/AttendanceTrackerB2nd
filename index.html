@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Record</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style-type: none;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #17153B;
+        }
+
+        .space {
+            height: 20%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .space h4 {
+            height: 30%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.4rem;
+            background-color: #17153B;
+        }
+
+        .space .bottom {
+            height: 70%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #433D8B;
+        }
+
+        .space .bottom .controls {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 40%;
+            height: 100%;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .space .bottom .controls div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0.5rem 2rem;
+            background-color: #C8ACD6;
+        }
+
+        .space .bottom .controls div button {
+            background-color: black;
+            padding: 0.8rem;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .space .bottom .controls div button:hover {
+            scale: 1.2;
+        }
+
+        .space .bottom .controls div p {
+            padding: 0.8rem;
+            color: black;
+            font-weight: bold;
+            /* background-color: red; */
+        }
+
+        .space .bottom .result {
+            width: 60%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            color: white;
+            /* background-color: yellowgreen; */
+        }
+
+        .reset {
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 0.6rem;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        @media only screen and (max-device-width: 480px) {
+            body{
+                height: auto;
+            }
+            .space {
+                height: 80%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .space h4 {
+                height: 15%;
+                width: 100%;
+                font-size: 1.2rem;
+            }
+
+            .space .bottom {
+                height: 85%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .space .bottom .controls {
+                height: 70%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                font-size: 0.6rem;
+            }
+
+            .space .bottom .controls div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #C8ACD6;
+            }
+
+            .space .bottom .controls div button {
+                background-color: black;
+                color: white;
+                border: none;
+                font-size: 0.6rem;
+            }
+
+            .space .bottom .controls div p {
+                color: black;
+                font-weight: bold;
+                /* background-color: red; */
+            }
+
+            .space .bottom .result {
+                width: 100%;
+                height: 30%;
+                font-size: 0.8rem;
+                padding: 0.4rem 0;
+            }
+
+            .reset {
+                font-size: 0.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="space">
+        <h4>Electrical</h4>
+        <div class="bottom">
+            <div class="controls">
+                <div class="L">
+                    <button class="present" onclick="attendanceFunctions.electricalLecAbsent()">A</button>
+                    <p>Lecture</p>
+                    <button class="absent" onclick="attendanceFunctions.electricalLecPresent()">P</button>
+                </div>
+
+                <div class="T">
+                    <button class="present" onclick="attendanceFunctions.electricalTutAbsent()">A</button>
+                    <p>Tutorial</p>
+                    <button class="absent" onclick="attendanceFunctions.electricalTutPresent()">P</button>
+                </div>
+
+                <div class="P">
+                    <button class="present" onclick="attendanceFunctions.electricalLabAbsent()">A</button>
+                    <p>Practical</p>
+                    <button class="absent" onclick="attendanceFunctions.electricalLabPresent()">P</button>
+                </div>
+            </div>
+            <div class="elecResult result"></div>
+        </div>
+    </div>
+
+    <div class="space">
+        <h4>C</h4>
+        <div class="bottom">
+            <div class="controls">
+                <div class="L">
+                    <button class="present" onclick="attendanceFunctions.cLecAbsent()">A</button>
+                    <p>Lecture</p>
+                    <button class="absent" onclick="attendanceFunctions.cLecPresent()">P</button>
+                </div>
+
+                <div class="P">
+                    <button class="present" onclick="attendanceFunctions.cLabAbsent()">A</button>
+                    <p>Practical</p>
+                    <button class="absent" onclick="attendanceFunctions.cLabPresent()">P</button>
+                </div>
+            </div>
+            <div class="cResult result"></div>
+        </div>
+    </div>
+
+    <div class="space">
+        <h4>Chemistry</h4>
+        <div class="bottom">
+            <div class="controls">
+                <div class="L">
+                    <button class="present" onclick="attendanceFunctions.chemLecAbsent()">A</button>
+                    <p>Lecture</p>
+                    <button class="absent" onclick="attendanceFunctions.chemLecPresent()">P</button>
+                </div>
+
+                <div class="P">
+                    <button class="present" onclick="attendanceFunctions.chemLabAbsent()">A</button>
+                    <p>Practical</p>
+                    <button class="absent" onclick="attendanceFunctions.chemLabPresent()">P</button>
+                </div>
+            </div>
+            <div class="chemResult result"></div>
+        </div>
+    </div>
+
+    <div class="space">
+        <h4>Maths</h4>
+        <div class="bottom">
+            <div class="controls">
+                <div class="L">
+                    <button class="present" onclick="attendanceFunctions.mathsLecAbsent()">A</button>
+                    <p>Lecture</p>
+                    <button class="absent" onclick="attendanceFunctions.mathsLecPresent()">P</button>
+                </div>
+
+                <div class="T">
+                    <button class="present" onclick="attendanceFunctions.mathsTutAbsent()">A</button>
+                    <p>Tutorial</p>
+                    <button class="absent" onclick="attendanceFunctions.mathsTutPresent()">P</button>
+                </div>
+
+            </div>
+            <div class="mathsResult result"></div>
+        </div>
+    </div>
+
+    <div class="space">
+        <h4>Environment</h4>
+        <div class="bottom">
+            <div class="controls">
+                <div class="L">
+                    <button class="present" onclick="attendanceFunctions.envLecAbsent()">A</button>
+                    <p>Lecture</p>
+                    <button class="absent" onclick="attendanceFunctions.envLecPresent()">P</button>
+                </div>
+
+            </div>
+            <div class="envResult result"></div>
+        </div>
+    </div>
+    <button class="reset">Reset</button>
+
+
+
+    <script>
+        let elecResult = document.querySelector(".elecResult");
+        let cResult = document.querySelector(".cResult");
+        let chemResult = document.querySelector(".chemResult");
+        let mathsResult = document.querySelector(".mathsResult");
+        let envResult = document.querySelector(".envResult");
+
+        let electricalAttended = parseFloat(localStorage.getItem("electricalAttended")) || 0;
+        let electricalTotal = parseFloat(localStorage.getItem("electricalTotal")) || 0;
+        let percentageElec = ((electricalAttended / electricalTotal) * 100).toFixed(2) || 0;
+
+        let cAttended = parseFloat(localStorage.getItem("cAttended")) || 0;
+        let cTotal = parseFloat(localStorage.getItem("cTotal")) || 0;
+        let percentageC = ((cAttended / cTotal) * 100).toFixed(2) || 0;
+
+        let chemAttended = parseFloat(localStorage.getItem("chemAttended")) || 0;
+        let chemTotal = parseFloat(localStorage.getItem("chemTotal")) || 0;
+        let percentageChem = ((chemAttended / chemTotal) * 100).toFixed(2) || 0;
+
+        let mathsAttended = parseFloat(localStorage.getItem("mathsAttended")) || 0;
+        let mathsTotal = parseFloat(localStorage.getItem("mathsTotal")) || 0;
+        let percentageMaths = ((mathsAttended / mathsTotal) * 100).toFixed(2) || 0;
+
+        let envAttended = parseFloat(localStorage.getItem("envAttended")) || 0;
+        let envTotal = parseFloat(localStorage.getItem("envTotal")) || 0;
+        let percentageEnv = ((envAttended / envTotal) * 100).toFixed(2) || 0;
+
+        const updateLocalStorage = () => {
+            localStorage.setItem("electricalAttended", electricalAttended);
+            localStorage.setItem("electricalTotal", electricalTotal);
+            localStorage.setItem("cAttended", cAttended);
+            localStorage.setItem("cTotal", cTotal);
+            localStorage.setItem("chemAttended", chemAttended);
+            localStorage.setItem("chemTotal", chemTotal);
+            localStorage.setItem("mathsAttended", mathsAttended);
+            localStorage.setItem("mathsTotal", mathsTotal);
+            localStorage.setItem("envAttended", envAttended);
+            localStorage.setItem("envTotal", envTotal);
+        };
+
+        const updateResultDisplay = () => {
+            elecResult.innerHTML = `Attendance is ${electricalAttended} / ${electricalTotal} corresponding to ${percentageElec}`;
+            cResult.innerHTML = `Attendance is ${cAttended} / ${cTotal} corresponding to ${percentageC}`;
+            chemResult.innerHTML = `Attendance is ${chemAttended} / ${chemTotal} corresponding to ${percentageChem}`;
+            mathsResult.innerHTML = `Attendance is ${mathsAttended} / ${mathsTotal} corresponding to ${percentageMaths}`;
+            envResult.innerHTML = `Attendance is ${envAttended} / ${envTotal} corresponding to ${percentageEnv}`;
+        };
+
+        const updatePercentage = () => {
+            percentageElec = ((electricalAttended / electricalTotal) * 100).toFixed(2) || 0;
+            percentageC = ((cAttended / cTotal) * 100).toFixed(2) || 0;
+            percentageChem = ((chemAttended / chemTotal) * 100).toFixed(2) || 0;
+            percentageMaths = ((mathsAttended / mathsTotal) * 100).toFixed(2) || 0;
+            percentageEnv = ((envAttended / envTotal) * 100).toFixed(2) || 0;
+        };
+
+        const attendanceFunctions = {
+            electricalLecPresent: () => {
+                electricalAttended++;
+                electricalTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            electricalLecAbsent: () => {
+                electricalTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            electricalTutPresent: () => {
+                electricalAttended += 0.5;
+                electricalTotal += 0.5;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            electricalTutAbsent: () => {
+                electricalTotal += 0.5;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            electricalLabPresent: () => {
+                electricalAttended += 2;
+                electricalTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            electricalLabAbsent: () => {
+                electricalTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            cLecPresent: () => {
+                cAttended++;
+                cTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            cLecAbsent: () => {
+                cTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            cLabPresent: () => {
+                cAttended += 2;
+                cTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            cLabAbsent: () => {
+                cTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            chemLecPresent: () => {
+                chemAttended++;
+                chemTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            chemLecAbsent: () => {
+                chemTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            chemLabPresent: () => {
+                chemAttended += 2;
+                chemTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            chemLabAbsent: () => {
+                chemTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            mathsLecPresent: () => {
+                mathsAttended++;
+                mathsTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            mathsLecAbsent: () => {
+                mathsTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            mathsTutPresent: () => {
+                mathsAttended += 0.5;
+                mathsTotal += 0.5;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            mathsTutAbsent: () => {
+                mathsTotal += 0.5;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            envLecPresent: () => {
+                envAttended++;
+                envTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            envLecAbsent: () => {
+                envTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+        };
+
+        updateResultDisplay();
+
+        document.querySelector(".reset").addEventListener("click", function () {
+            localStorage.clear();
+            console.log(electricalAttended);
+            electricalAttended = 0;
+            electricalTotal = 0;
+            cAttended = 0;
+            cTotal = 0;
+            chemAttended = 0;
+            chemTotal = 0;
+            mathsAttended = 0;
+            mathsTotal = 0;
+            envAttended = 0;
+            envTotal = 0;
+            updatePercentage();
+            updateResultDisplay();
+        })
+    </script>
+</body>
+
+</html>
